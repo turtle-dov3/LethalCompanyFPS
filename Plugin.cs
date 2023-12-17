@@ -24,6 +24,10 @@ namespace LethalCompanyFPS
             harmony.PatchAll(typeof(Plugin));
             harmony.PatchAll(typeof(StartOfRoundPatch));
             harmony.PatchAll(typeof(ShotgunItemPatch));
+            harmony.PatchAll(typeof(EnemyAIPatch));
+            harmony.PatchAll(typeof(TurretPatch));
+            harmony.PatchAll(typeof(LandminePatch));
+
 
         }
     }

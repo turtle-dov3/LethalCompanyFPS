@@ -24,8 +24,13 @@ namespace LethalCompanyFPS.Patches
 
         private static void AddShotgunPostFix(StartOfRound __instance)
         {   
-            if (completed) return;
-            GameObject ship = GameObject.Find("/Environment/HangarShip");
+
+            foreach (GrabbableObject it in Resources.FindObjectsOfTypeAll<GrabbableObject>())
+            {
+                MyLogger.LogInfo($"{it.name}");
+            }
+
+        GameObject ship = GameObject.Find("/Environment/HangarShip");
             
             GrabbableObject[] shotgunsMade = ship.GetComponentsInChildren<GrabbableObject>().Where(x=> x.name == "ShotgunItem(Clone)" || x.name == "ShotgunItem").ToArray();
             MyLogger.LogInfo($"Shotguns already made {shotgunsMade.Length}");
@@ -34,17 +39,16 @@ namespace LethalCompanyFPS.Patches
             if (shotgunsMade.Length >= numberOfPlayers) return;
 
             long difference = (numberOfPlayers - shotgunsMade.Length);
-            long numberToMake = difference < 4 ? 4 : difference;
+            
             
             MyLogger.LogInfo($"Players on the map {numberOfPlayers}");
             Item shotgun = getItem("Shotgun");
            
 
-            for (int i = 0; i < numberToMake; i++)
+            for (int i = 0; i < difference; i++)
             {
                 CreateItemForShip(__instance, shotgun);
             }
-            completed = true;
 
         }
 
